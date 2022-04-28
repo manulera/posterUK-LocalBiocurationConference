@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta itemprop="name" content="Strains">
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.0/markdown-it.min.js"
+        integrity="sha512-A1dmQlsxp9NpT1ON0E7waXFEX7PXtlOlotHtSvdchehjLxBaVO5itVj8Z5e2aCxI0n02hqM1WoDTRRh36c5PuA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        article {
+            height: 594mm;
+            width: 841mm;
+            overflow: hidden;
+        }
+
+        div.container {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 10mm;
+            column-gap: 20mm;
+            column-count: 3;
+        }
+
+        div.box {
+            border-color: #106aa2;
+            border: solid;
+            border-radius: 30mm;
+            border-width: 2mm;
+            overflow: hidden;
+            font-size: 9mm;
+            width: auto;
+            break-inside: avoid;
+            margin-bottom: 10mm;
+        }
+
+        div.box a {
+            font-size: 11mm;
+            color: #106aa2;
+        }
+
+        div.content {
+            margin: 15mm 20mm 15mm 20mm;
+        }
+
+        div.box h2 {
+            font-size: 1.2em;
+        }
+
+        div.box h1 {
+            background-color: #106aa2;
+            font-size: 2em;
+            color: white;
+            padding-top: 5mm;
+            padding-bottom: 5mm;
+            border-bottom: solid;
+            border-color: black;
+            border-width: 2mm;
+            text-align: center;
+        }
+
+        div.logo {
+            width: 100%;
+            background-color: #106aa2;
+            height: 22em;
+            position: relative;
+        }
+
+        div.logos {
+            text-align: right;
+            position: absolute;
+            right: 0;
+            bottom: 0px;
+            display: flex;
+            width: 40%;
+        }
+
+        img.logo {
+            margin-bottom: 0;
+        }
+
+        div.img-wrapper {
+            text-align: center;
+        }
+
+        img {
+
+            margin: auto;
+        }
+
+        div.mermaid code {
+            font-size: 7mm;
+        }
+
+        code hr {
+            margin: 0;
+        }
+
+        #author-title-info {
+            position: absolute;
+            color: white;
+            margin-left: 20mm;
+            margin-top: 10mm;
+            width: 100%;
+            font-size: 8mm;
+        }
+
+        #author-title-info h1 {
+            font-size: 300%;
+            margin-bottom: 6mm;
+        }
+
+        #author-title-info p {
+            margin-bottom: .5em;
+        }
+
+        #author-title-info ol {
+            font-size: 6mm;
+        }
+
+        div.centered p {
+            text-align: center;
+        }
+    </style>
+    <script>
+        async function loadTextFile(url) {
+            const response = await fetch(url);
+            return response.text();
+        }
+
+        window.onload = () => {
+            const md = window.markdownit()
+            console.log(md)
+            md.options.html = true
+            loadTextFile('./content.md').then((content) => {
+                const renderedHTML = md.render(content)
+                const element = document.getElementById('main-container')
+                element.innerHTML = renderedHTML
+                mermaid.init(undefined)
+            })
+            loadTextFile('./author-title-info.md').then((content) => {
+                const renderedHTML = md.render(content)
+                const element = document.getElementById('author-title-info')
+                element.innerHTML = renderedHTML
+            })
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <article>
+        <div class="logo">
+            <div id="author-title-info"></div>
+            <div class="logos">
+            <img src="ols_vectorised_white.svg" alt="" width="320mm" class="logo">
+            <img src="logo.svg" alt="" width="600mm" class="logo"></div>
+        </div>
+        </div>
+        <div class="container" id="main-container"></div>
+    </article>
+</body>
+
+</html>
